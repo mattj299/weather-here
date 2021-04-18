@@ -16,6 +16,6 @@ Click in one of the three folders and they each have their own html, css, and js
 
 This project was built to test my js skills, as well as getting used to html and css.
 
-# Third parties used
+## Third parties used
 
 Leaflet.js was used for the map and openweathermap was used for the weather data.
