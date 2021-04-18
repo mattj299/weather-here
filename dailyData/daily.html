@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="daily.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="crossorigin=""></script>
+        <script src="https://kit.fontawesome.com/c94ed536a7.js" crossorigin="anonymous"></script>
+        <title>Daily Weather Data</title>
+    </head>
+
+
+    <!--Header involves all the top bar of the page-->
+        <header>
+            <div class="container">
+                <nav>
+                    <div class="left-header float-left col-3">
+                        <a href="">
+                            <img id="sun-icon" class="float-left" src="../images/sun-icon.png" alt="sun">
+                            <p id="weather-here" class="float-left">Weather Here</p>
+                        </a>
+                    </div>
+                    <ul class="middle-header nav-ul unstyled-list float-left col-4">
+                        <a href=""><li>Weather</li></a>
+                        <a href=""><li>News</li></a>
+                        <a href=""><li>Maps</li></a>
+                    </ul>
+                    <div class="right-header float-left col-3">
+                            <div class="search-items">
+                                <p id="lat-lon-description">Enter coordinates below</p>
+                                <input class="inputs" id="input-lat" type="number" placeholder="Latitude" value="">
+                                <input class="inputs" id="input-lon" type="number" placeholder="Longitude" value="">
+                                <button class="submit fas fa-search"></button>
+                                <button class="fas header-location-arrow fa-location-arrow">
+                                    <span class="tool-tip-text">Use Current Location</span>
+                                </button>
+                            </div>
+                            <button class="bars fas fa-bars"></button>
+                            <button class="search fas fa-search"></button>
+                    </div>
+                </nav>
+
+            </div>
+            
+            <div class="search-menu">
+                <button class="x-button fas">X</button>
+                <div class="search-items">
+                    <p id="lat-lon-description">Enter coordinates below</p>
+                    <input class="inputs menu-input-lat" id="input-lat" type="number" placeholder="Latitude" value="">
+                    <input class="inputs menu-input-lon" id="input-lon" type="number" placeholder="Longitude" value="">
+                    <button class="submit fas fa-search"></button>
+                    <div class="clearfix bottom-of-search-menu">
+                        <button class="current-location float-left col-2">
+                            <i class="fas fa-location-arrow"></i>
+                            <p class="use-current-p">Use current location</p>
+                        </button>
+                        <div class="header-timezone float-left col-3">
+                            <p>Current locations timezone</p>
+                            <p class="timezone-data"></p>
+                        </div>
+                        <div class="current-weather float-left col-3">
+                            <p>Current Temperature</p>
+                            <p class="current-temp-data"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="clearfix dropdown-nav-menu">
+                <button class="x-button fas">X</button>
+                <ul class="dropdown-nav-menu-ul unstyled-list float-left col-10">
+                    <a href=""><li>Weather</li></a>
+                    <a href=""><li>News</li></a>
+                    <a href=""><li>Maps</li></a>
+                </ul>
+            </div>
+        </header>
+
+        <section class="subnav clearfix">
+            <div class="container">
+                <ul class="unstyled-list subnav-ul">
+                    <a class='nowSubNav' href="../now/now.html"><li>Now</li></a>
+                    <a class='hourlySubNav' href="../hourlyData/hourly.html"><li>Hourly</li></a>
+                    <a class='dailySubNav' href="../dailyData/daily.html"><li class="showing">Daily</li></a>
+                    <span class="temperature-units float-right">
+                        <a class="fahrenheit-element"><li class="fahrenheit showing">°F</li></a>
+                        <a class="celsius-element"><li class="celsius">°C</li></a>
+                        <a class="kelvin-element"><li class="kelvin">K</li></a>
+                    </span>
+                </ul>
+            </div>
+        </section>
+
+        <!--Section showing the weather information through "cards"-->
+        <section class="weather-data clearfix">
+          <div class="container">
+              <div class="left-section float-left col-6">
+                  
+                    <!--Display Latitude and Longitude-->
+                    <div class="data-card data-card-coordinates">
+                        <p>Latitude: <span class="latitude-element"></span></p>
+                        <p>Longitude: <span class="longitude-element"></span></p>
+                    </div>
+                    
+                  <!-- Card #1 -->
+                    <div class="data-card clearfix">
+                      <p class="time-element">
+                          <span class="date-element"></span>
+                      </p>
+                      <div class="image-element-container">
+                          <img class="image-element" src="" alt="">
+                      </div>
+                      <p class="temperature-element">
+                          <span class="min-temp-element">
+                          </span>
+                        </p>
+                      <p class="description-element"></p>
+                      <div class="chevron-container">
+                          <button class="chevron-button"><i class="fas fa-chevron-down rotate"></i></button>
+                      </div>
+
+                      <div class="data-card-extended extending">
+                          <div class="extended-panel-left">
+                              <p class="description-element-extended"></p>
+                              <p class="sunrise-element"></p>
+                              <p class="sunset-element"></p>
+                              <p class="uvi-element"></p>
+                            </div>
+                          <div class="extended-panel-right">
+                              <p class="clouds-element"></p>
+                              <p class="dew-point-element"></p>
+                              <p class="humidity-element"></p>
+                          </div>
+                      </div>
+                    </div>
+                  
+                  <!-- Card #2 -->
+                  <div class="data-card clearfix">
+                    <p class="time-element">
+                        <span class="date-element"></span>
+                    </p>
+                    <div class="image-element-container">
+                        <img class="image-element" src="" alt="">
+                    </div>
+                    <p class="temperature-element">
+                        <span class="min-temp-element">
+                        </span>
+                      </p>
+                    <p class="description-element"></p>
+                    <div class="chevron-container">
+                        <button class="chevron-button"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+
+                    <div class="data-card-extended">
+                        <div class="extended-panel-left">
+                            <p class="description-element-extended"></p>
+                            <p class="sunrise-element"></p>
+                            <p class="sunset-element"></p>
+                            <p class="uvi-element"></p>
+                          </div>
+                        <div class="extended-panel-right">
+                            <p class="clouds-element"></p>
+                            <p class="dew-point-element"></p>
+                            <p class="humidity-element"></p>
+                        </div>
+                    </div>
+                    </div>
+                  
+                  <!-- Card #3 -->
+                  <div class="data-card clearfix">
+                    <p class="time-element">
+                        <span class="date-element"></span>
+                    </p>
+                    <div class="image-element-container">
+                        <img class="image-element" src="" alt="">
+                    </div>
+                    <p class="temperature-element">
+                        <span class="min-temp-element">
+                        </span>
+                      </p>
+                    <p class="description-element"></p>
+                    <div class="chevron-container">
+                        <button class="chevron-button"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+
+                    <div class="data-card-extended">
+                        <div class="extended-panel-left">
+                            <p class="description-element-extended"></p>
+                            <p class="sunrise-element"></p>
+                            <p class="sunset-element"></p>
+                            <p class="uvi-element"></p>
+                          </div>
+                        <div class="extended-panel-right">
+                            <p class="clouds-element"></p>
+                            <p class="dew-point-element"></p>
+                            <p class="humidity-element"></p>
+                        </div>
+                    </div>
+                  </div>
+                
+                  <!-- Card #4 -->
+                  <div class="data-card clearfix">
+                    <p class="time-element">
+                        <span class="date-element"></span>
+                    </p>
+                    <div class="image-element-container">
+                        <img class="image-element" src="" alt="">
+                    </div>
+                    <p class="temperature-element">
+                        <span class="min-temp-element">
+                        </span>
+                      </p>
+                    <p class="description-element"></p>
+                    <div class="chevron-container">
+                        <button class="chevron-button"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+
+                    <div class="data-card-extended">
+                        <div class="extended-panel-left">
+                            <p class="description-element-extended"></p>
+                            <p class="sunrise-element"></p>
+                            <p class="sunset-element"></p>
+                            <p class="uvi-element"></p>
+                          </div>
+                        <div class="extended-panel-right">
+                            <p class="clouds-element"></p>
+                            <p class="dew-point-element"></p>
+                            <p class="humidity-element"></p>
+                        </div>
+                    </div>
+                  </div>
+                      
+                  <!-- Card #5 -->
+                  <div class="data-card clearfix">
+                    <p class="time-element">
+                        <span class="date-element"></span>
+                    </p>
+                    <div class="image-element-container">
+                        <img class="image-element" src="" alt="">
+                    </div>
+                    <p class="temperature-element">
+                        <span class="min-temp-element">
+                        </span>
+                      </p>
+                    <p class="description-element"></p>
+                    <div class="chevron-container">
+                        <button class="chevron-button"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+
+                    <div class="data-card-extended">
+                        <div class="extended-panel-left">
+                            <p class="description-element-extended"></p>
+                            <p class="sunrise-element"></p>
+                            <p class="sunset-element"></p>
+                            <p class="uvi-element"></p>
+                          </div>
+                        <div class="extended-panel-right">
+                            <p class="clouds-element"></p>
+                            <p class="dew-point-element"></p>
+                            <p class="humidity-element"></p>
+                        </div>
+                    </div>
+                  </div>
+
+              <!-- Card #6 -->
+              <div class="data-card clearfix">
+                <p class="time-element">
+                    <span class="date-element"></span>
+                </p>
+                <div class="image-element-container">
+                    <img class="image-element" src="" alt="">
+                </div>
+                <p class="temperature-element">
+                    <span class="min-temp-element">
+                    </span>
+                  </p>
+                <p class="description-element"></p>
+                <div class="chevron-container">
+                    <button class="chevron-button"><i class="fas fa-chevron-down"></i></button>
+                </div>
+
+                <div class="data-card-extended">
+                    <div class="extended-panel-left">
+                        <p class="description-element-extended"></p>
+                        <p class="sunrise-element"></p>
+                        <p class="sunset-element"></p>
+                        <p class="uvi-element"></p>
+                      </div>
+                    <div class="extended-panel-right">
+                        <p class="clouds-element"></p>
+                        <p class="dew-point-element"></p>
+                        <p class="humidity-element"></p>
+                    </div>
+                </div>
+              </div>
+              
+                  <!-- Card #7 -->
+                  <div class="data-card clearfix">
+                    <p class="time-element">
+                        <span class="date-element"></span>
+                    </p>
+                    <div class="image-element-container">
+                        <img class="image-element" src="" alt="">
+                    </div>
+                    <p class="temperature-element">
+                        <span class="min-temp-element">
+                        </span>
+                      </p>
+                    <p class="description-element"></p>
+                    <div class="chevron-container">
+                        <button class="chevron-button"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+
+                    <div class="data-card-extended">
+                        <div class="extended-panel-left">
+                            <p class="description-element-extended"></p>
+                            <p class="sunrise-element"></p>
+                            <p class="sunset-element"></p>
+                            <p class="uvi-element"></p>
+                          </div>
+                        <div class="extended-panel-right">
+                            <p class="clouds-element"></p>
+                            <p class="dew-point-element"></p>
+                            <p class="humidity-element"></p>
+                        </div>
+                    </div>
+                  </div>
+
+                  
+                  <!-- Card #8 -->
+                  <div class="data-card clearfix">
+                    <p class="time-element">
+                        <span class="date-element"></span>
+                    </p>
+                    <div class="image-element-container">
+                        <img class="image-element" src="" alt="">
+                    </div>
+                    <p class="temperature-element">
+                        <span class="min-temp-element">
+                        </span>
+                      </p>
+                    <p class="description-element"></p>
+                    <div class="chevron-container">
+                        <button class="chevron-button"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+
+                    <div class="data-card-extended">
+                        <div class="extended-panel-left">
+                            <p class="description-element-extended"></p>
+                            <p class="sunrise-element"></p>
+                            <p class="sunset-element"></p>
+                            <p class="uvi-element"></p>
+                          </div>
+                        <div class="extended-panel-right">
+                            <p class="clouds-element"></p>
+                            <p class="dew-point-element"></p>
+                            <p class="humidity-element"></p>
+                        </div>
+                    </div>
+                  </div>
+
+              </div>
+
+              <div class="right-section float-left col-4">
+
+                <!--Display prompt above the map for when the map is clicked to confirm the coordinates-->
+                <div class="map-prompt position-absolute map-question clearfix">
+                    <div class="map-prompt-left float-left">
+                        <p class="map-prompt-description"></p>
+                    </div>
+
+                    <div class="map-prompt-right float-right">
+                        <button class="yes-map-prompt prompt-button">Yes</button>
+                        <button class="no-map-prompt prompt-button">No</button>
+                    </div>
+                </div>
+
+                
+                                
+                <div class="map-prompt click-map-description">Click the map to display data from those coordinates!</div>   
+                <!--Map being displayed via leaflet.js-->
+                <div id="map"></div>
+
+              </div>
+          </div>
+        </section>
+
+        <footer>
+          <div class="container">
+              <!--First Strip-->
+              <div class="first-strip-footer clearfix">
+                  <!--First Section-->
+                  <div class="left-footer footer-section float-left col-3">
+                          <div class="footer-main-section">
+                              <p class="footer-header">About us</p>
+                              <p>I am a student who is trying to learn how to code because I've always been interested in it and would love to have this as a
+                                  future job because the future is all about technology
+                              </p>
+                      </div>
+                      
+                      <div class="footer-small">
+                          <p class="footer-header col-8">About us</p>
+                          <div class="footer-chevron-container float-right">
+                              <button class="footer-chevron-button"><i class="fas fa-chevron-down footer-chevron"></i></button>
+                          </div>
+
+                          <div class="footer-extended float-left col-10">
+                              <p>I am a student who is trying to learn how to code because I've always been interested in it and would love to have this as a
+                                  future job because the future is all about technology.</p>
+                          </div>
+                      </div>
+
+                  </div>
+                
+                <!--Second Section-->
+                <div class="middle-footer footer-section float-left col-3">
+                  <div class="footer-main-section">
+                      <p class="footer-header">Purpose</p>
+                      <p>The purpose of this website was to make a project that uses an api where I then use the data from that api
+                          and display it onto a website I have built myself.
+                      </p>
+                  </div>
+
+                  <div class="footer-small">
+                      <p class="footer-header col-8">Purpose</p>
+                      <div class="footer-chevron-container float-right">
+                          <button class="footer-chevron-button"><i class="fas fa-chevron-down footer-chevron"></i></button>
+                      </div>
+
+                      <div class="footer-extended float-left col-10">
+                          <p>The purpose of this website was to make a project that uses an api where I then use the data from that api
+                              and display it onto a website I have built myself.</p>
+                      </div>
+                  </div>
+
+                </div>
+
+                <!--Third Section-->
+                  <div class="right-footer footer-section float-left col-3">
+                      <div class="footer-main-section">
+                          <p class="footer-header">Other Data information</p>
+                          <ul class="unstyled-list">
+                              <a href="../now/now.html"><li>Now Weather Data</li></a>
+                              <a href="../hourlyData/hourly.html"><li>Hourly Weather Data</li></a>
+                              <a href="../dailyData/daily.html"><li>Daily Weather Data</li></a>
+                          </ul>
+                      </div>
+
+                      <div class="footer-small">
+                          <p class="footer-header col-8">Other Data information</p>
+                          <div class="footer-chevron-container float-right">
+                              <button class="footer-chevron-button"><i class="fas fa-chevron-down footer-chevron"></i></button>
+                          </div>
+  
+                          <div class="footer-extended float-left col-10">
+                              <ul class="unstyled-list">
+                                  <a href="../now/now.html"><li>Now Weather Data</li></a>
+                                  <a href="../hourlyData/hourly.html"><li>Hourly Weather Data</li></a>
+                                  <a href="../dailyData/daily.html"><li>Daily Weather Data</li></a>
+                              </ul>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+
+              
+              <!--Second Strip-->
+              <div class="second-strip-footer clearfix">
+                  <!--Fourth Section-->
+                  <div class="left-footer footer-section float-left col-3">
+                      <div class="footer-main-section">
+                          <p class="footer-header">Terms and Conditions</p>
+                          <ul class="unstyled-list">
+                              <a href=""><li>Terms and Conditions</li></a>
+                              <a href=""><li>Privacy Policy</li></a>
+                          </ul>
+                      </div>
+
+                      <div class="footer-small">
+                          <p class="footer-header col-8">Terms and Conditions</p>
+                          <div class="footer-chevron-container float-right">
+                              <button class="footer-chevron-button"><i class="fas fa-chevron-down footer-chevron"></i></button>
+                          </div>
+  
+                          <div class="footer-extended float-left col-10">
+                              <ul class="unstyled-list">
+                                  <a href=""><li>Terms and Conditions</li></a>
+                                  <a href=""><li>Privacy Policy</li></a>
+                              </ul>
+                          </div>
+                      </div>
+
+                      
+                  </div>
+
+                  <!--Fifth Section-->
+                  <div class="middle-footer footer-section float-left col-3">
+                      <div class="footer-main-section">
+                          <p class="footer-header">Contact</p>
+                          <ul class="unstyled-list">
+                              <a href=""><li>email@example.com</li></a>
+                              <a href=""><li>(000)000-0000</li></a>
+                              <a href=""><li>Facebook</li></a>
+                              <a href=""><li>Twitter</li></a>
+                              <a href=""><li>Instagram</li></a>
+                          </ul>
+                      </div>
+
+                      <div class="footer-small">
+                          <p class="footer-header col-8">Contact</p>
+                          <div class="footer-chevron-container float-right">
+                              <button class="footer-chevron-button"><i class="fas fa-chevron-down footer-chevron"></i></button>
+                          </div>
+  
+                          <div class="footer-extended float-left col-10">
+                              <ul class="unstyled-list">
+                                  <a href=""><li>email@example.com</li></a>
+                                  <a href=""><li>(000)000-0000</li></a>
+                                  <a href=""><li>Facebook</li></a>
+                                  <a href=""><li>Twitter</li></a>
+                                  <a href=""><li>Instagram</li></a>
+                              </ul>
+                          </div>
+                      </div>
+
+                  </div>
+
+
+                  <!--Sixth Section-->
+                  <div class="right-footer footer-section float-left col-3">
+                      <div class="footer-main-section">
+                          <p class="footer-header">API</p>
+                          <ul class="unstyled-list">
+                              <a href=""><li>openweathermap</li></a>
+                              <a href=""><li>leaflet.js</li></a>
+                          </ul>
+                      </div>
+                      
+                      <div class="footer-small">
+                          <p class="footer-header col-8">API</p>
+                          <div class="footer-chevron-container float-right">
+                              <button class="footer-chevron-button"><i class="fas fa-chevron-down footer-chevron"></i></button>
+                          </div>
+  
+                          <div class="footer-extended float-left col-10">
+                              <ul class="unstyled-list">
+                                  <a href=""><li>openweathermap</li></a>
+                                  <a href=""><li>leaflet.js</li></a>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <!--Third Strip-->
+              <div class="third-strip-footer footer-social clearfix">
+                  <div class="left-footer third-strip-sections float-left">
+                      <p>©2020 OpenWeather ® All rights reserved</p>
+                  </div>
+                  <div class="right-footer third-strip-sections float-right">
+                      <ul class="unstyled-list ul-footer-social">
+                          <a href=""><li><i class="fas fa-envelope"></i></li></a>
+                          <a href=""><li><i class="fas fa-phone"></i></li></a>
+                          <a href=""><li><i class="fab fa-facebook"></i></li></a>
+                          <a href=""><li><i class="fab fa-twitter-square"></i></li></a>
+                          <a href=""><li><i class="fab fa-instagram-square"></i></li></a>
+                          
+                      </ul>
+                  </div>
+              </div>
+
+          </div>
+        </footer>
+
+        
+    </body>
+
+    <script src="daily.js"></script>
+</html>

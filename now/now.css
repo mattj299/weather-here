@@ -1,0 +1,980 @@
+/* GENERAL SECTION */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #ffffff;
+}
+section {
+  padding-top: 1em;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  border-radius: 0.25em;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: #333333;
+}
+
+.clearfix::after,
+header::after,
+nav::after,
+footer::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.unstyled-list {
+  list-style-type: none;
+}
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+@media (max-width: 75em) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 60rem) {
+  .container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 45rem) {
+  section {
+    padding: 0;
+  }
+}
+
+/* active makes it so the element is display block, used when elements are display none and want to be shown */
+.active {
+  display: block !important;
+}
+
+/* GRID SYSTEM BASED OFF 10 COL, GRID SYSTEM ONLY CORRESPONDS WITH THE BROWSER BEING FULL SCREEN */
+
+.col-0 {
+  width: 0%;
+}
+
+.col-1 {
+  width: 10%;
+}
+
+.col-2 {
+  width: 20%;
+}
+
+.col-3 {
+  width: 30%;
+}
+
+.col-4 {
+  width: 40%;
+}
+
+.col-5 {
+  width: 50%;
+}
+
+.col-6 {
+  width: 60%;
+}
+
+.col-7 {
+  width: 70%;
+}
+
+.col-8 {
+  width: 80%;
+}
+
+.col-9 {
+  width: 90%;
+}
+
+.col-10 {
+  width: 100%;
+}
+
+/* HEADER SECTION, everything involving the header from the biggest screen size to the smallest */
+
+/* Makes the header/nav sticky */
+
+.sticky {
+  background-color: rgba(26, 26, 26, 0.98);
+  position: fixed;
+  top: 0%;
+  width: 100%;
+  font-size: 0.8em;
+}
+
+.sticky + .subnav {
+  padding-top: 10vh;
+}
+
+header {
+  text-align: center;
+  background-color: #1a1a1a;
+  /* z-index is high because leaflets controls are 1000 index so it has to be higher */
+  z-index: 1001;
+}
+
+#sun-icon {
+  position: relative;
+  height: 50px;
+  width: auto;
+  top: 0.5em;
+  left: 2em;
+}
+
+#weather-here {
+  position: relative;
+  font-size: 1.3em;
+  font-weight: 900;
+  color: #fad000;
+  display: inline-block;
+  padding: 1em;
+  top: 0.25em;
+}
+
+.middle-header {
+  right: 1em;
+}
+
+.nav-ul a {
+  display: inline-block;
+  padding: 2em;
+  border-bottom: 3px solid rgba(26, 26, 26, 0);
+}
+
+.nav-ul a:hover,
+.dropdown-nav-menu-ul a:hover {
+  background-color: #333333;
+  border-color: #fad000;
+}
+
+.nav-ul a li,
+.dropdown-nav-menu-ul a li {
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+#lat-lon-description {
+  color: #ffffff;
+  top: 0.25em;
+  position: relative;
+  padding-right: 4em;
+}
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.inputs {
+  width: 6.25rem;
+  height: 1.5em;
+  margin-right: 0.5em;
+  margin-top: 0.75em;
+  padding: 1em 1em 1em 0.5em;
+  color: #ffffff;
+  background-color: #333333;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.right-header {
+  text-align: right;
+  z-index: 1;
+}
+
+.fas,
+.use-current-p {
+  color: #ffffff;
+  font-size: 1.25em;
+}
+
+.fa-search,
+.fa-bars,
+.header-location-arrow {
+  padding: 0.5em;
+  top: 0.1em;
+}
+
+.header-location-arrow {
+  position: absolute;
+  float: right;
+  top: 1em;
+}
+
+.sticky .header-location-arrow {
+  top: 1.35em;
+}
+
+.header-location-arrow .tool-tip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 0.75em;
+
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.header-location-arrow:hover .tool-tip-text {
+  visibility: visible;
+}
+
+.search,
+.fa-bars {
+  display: none !important;
+}
+
+.x-button {
+  position: absolute;
+  right: 4.5%;
+  font-weight: 100;
+  font-size: 1.5em;
+  padding: 0.5em;
+  top: 1.5em;
+  z-index: 1;
+}
+
+.search-menu,
+.dropdown-nav-menu {
+  display: none;
+  position: absolute;
+  background-color: rgba(26, 26, 26);
+  top: 100%;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.search-menu {
+  padding-bottom: 1em;
+}
+
+.sticky .search-menu,
+.sticky .dropdown-nav-menu {
+  background-color: rgba(26, 26, 26, 0.98);
+}
+
+.current-location {
+  text-align: left;
+  margin-top: 1em;
+  padding: 1em;
+  width: 16em;
+  left: 1.5em;
+}
+
+.current-weather,
+.header-timezone {
+  left: 2vh;
+}
+
+.bottom-of-search-menu {
+  top: 0.5em;
+}
+
+.bottom-of-search-menu div > p:first-child {
+  color: #ffffff;
+}
+
+.bottom-of-search-menu div > p {
+  padding: 0.25em;
+  color: #fad000;
+}
+
+.dropdown-nav-menu-ul {
+  display: block;
+  text-align: left;
+}
+
+.dropdown-nav-menu-ul a li {
+  padding: 1em;
+  font-weight: 100;
+}
+
+.dropdown-nav-menu-ul li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 75rem /* 1200px */) {
+  .nav-ul a {
+    padding: 2em 1em;
+  }
+
+  .right-header {
+    text-align: left;
+  }
+
+  .inputs {
+    width: 5rem;
+  }
+}
+
+@media (max-width: 60rem /* 960px */) {
+  .inputs {
+    background-color: rgb(51, 51, 51);
+  }
+
+  .inputs,
+  #lat-lon-description,
+  .fa-location-arrow,
+  .use-current-p {
+    display: block;
+    left: 0;
+    margin-left: 1em;
+    font-size: 1.25em;
+    width: 85vw;
+  }
+
+  #lat-lon-description {
+    font-size: 1em;
+  }
+
+  .fa-location-arrow {
+    position: absolute;
+    width: 100%;
+  }
+
+  .use-current-p {
+    left: 1em;
+    width: 100%;
+  }
+
+  .fa-search,
+  .fa-bars {
+    top: 1em;
+    right: 4.5%;
+  }
+
+  .submit {
+    float: right;
+    right: 5%;
+    top: -2em;
+  }
+
+  .search {
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 45rem /* 720px */) {
+  .sticky {
+    font-size: 1em;
+  }
+  .sticky + .subnav {
+    padding-top: 9vh;
+  }
+
+  #sun-icon {
+    height: 2em;
+    left: 0.5em;
+    top: 0.8em;
+  }
+
+  #weather-here {
+    font-size: 1.15em;
+    right: 0.75em;
+    top: 0em;
+  }
+
+  .nav-ul {
+    display: none;
+  }
+
+  .fa-bars {
+    display: inline-block !important;
+  }
+
+  .right-header {
+    text-align: right;
+    bottom: 0.5em;
+  }
+
+  .submit {
+    position: absolute;
+    top: 0em;
+    right: 2.5em;
+  }
+
+  .x-button {
+    top: -0.25em;
+    right: 0.5em;
+  }
+
+  .current-weather,
+  .header-timezone {
+    text-align: left;
+  }
+}
+
+/* Subnav and everything involving the subnav */
+.subnav {
+  padding-top: 0em;
+}
+
+.subnav-ul {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.subnav-ul li {
+  padding: 0.5em 1em;
+  display: inline-block;
+  font-size: 1.25em;
+  color: rgb(120, 120, 120);
+}
+
+.subnav-ul a li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000000;
+}
+
+.temperature-units a {
+  cursor: pointer;
+}
+
+/* This class goes on the subnav items that are currently showing */
+.showing {
+  color: rgb(0, 0, 0) !important;
+}
+
+@media (max-width: 45rem) {
+  .subnav-ul {
+    text-align: center;
+  }
+
+  .temperature-units {
+    width: 100%;
+  }
+
+  .temperature-units a {
+    padding: 0 1em;
+    right: 0.25em;
+  }
+}
+
+/* Weather data section */
+
+/* Left Section */
+
+.data-card {
+  margin: 0.75em 0;
+  height: auto;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.data-card:first-child {
+  margin: 0 0 0.75em;
+}
+
+.data-card:last-child {
+  margin: 0.75em 0 0;
+}
+
+.data-card-main {
+  float: left;
+  width: 50%;
+  padding: 1em;
+}
+
+.data-card-main > *,
+.now-daily-data > * {
+  float: left;
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.time-element {
+  font-weight: 900;
+  text-align: left;
+}
+
+.date-element {
+  display: block;
+  font-weight: 400;
+}
+
+.image-element-container {
+  width: 50%;
+  text-align: right;
+  padding-right: 0.5em;
+}
+
+.image-element {
+  width: 5em;
+}
+
+.temperature-element {
+  font-size: 2em;
+  font-weight: 900;
+  text-align: left;
+  width: 50%;
+  right: 1em;
+  top: 0.5em;
+  padding-left: 0.5em;
+}
+
+.description-element {
+  font-size: 1.25em;
+  padding: 0.5em;
+  border-bottom: 1px solid rgba(120, 120, 120, 0.5);
+}
+
+.sunrise-element,
+.sunset-element {
+  text-align: left;
+  padding: 1em 0 0;
+  float: left;
+  width: 100%;
+}
+
+.sunrise-element span,
+.sunset-element span {
+  float: right;
+}
+
+.sunrise-image-container,
+.sunset-image-container {
+  float: left;
+  width: 50%;
+  top: 1em;
+}
+
+.sunrise-sunset-image,
+.sunset-sunset-image {
+  width: 4.5em;
+}
+
+.data-card-coordinates {
+  padding: 0.75em 0;
+}
+
+.latitude-element,
+.longitude-element {
+  display: block;
+  font-size: 0.8em;
+  padding-top: 0.5em;
+}
+
+.more-chevron-container {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  width: unset;
+  font-size: 0.65em;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.more-chevron-container span {
+  padding: 0.5em;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.more-chevron-container button {
+  padding: 1em 0;
+}
+
+.more-chevron-container button:hover {
+  background-color: transparent;
+}
+
+.fa-chevron-down {
+  transition: all 0.5s;
+}
+
+.fa-chevron-down.rotate {
+  transform: rotate(180deg);
+}
+
+.data-card-extended {
+  float: left;
+  width: 50%;
+  border-left: 3px solid rgba(120, 120, 120, 0.5);
+  background-color: rgba(58, 58, 58, 0.6);
+  overflow: hidden;
+  transition: height 0.5s;
+}
+
+.data-card-extended > p {
+  border-bottom: 1px solid rgba(120, 120, 120, 0.5);
+  padding: 1em;
+}
+
+.data-card-extended > p span {
+  float: right;
+}
+
+.now-daily-data {
+  padding: 1em;
+}
+
+.now-daily-day-element {
+  width: 70%;
+  text-align: left;
+  font-size: 0.9em;
+}
+
+.now-daily-date-element {
+  width: 30%;
+  position: relative;
+  text-align: right;
+  font-size: 0.9em;
+}
+.now-daily-image-element-container {
+  width: 50%;
+  text-align: right;
+  left: 0.5em;
+}
+
+.now-daily-image-element {
+  width: 6em;
+}
+
+.now-daily-temperature-element {
+  font-size: 1.25em;
+  font-weight: 900;
+  width: 50%;
+  top: 1.25em;
+  text-align: left;
+  right: 0.5em;
+}
+
+.min-temp-element {
+  font-weight: 200;
+  top: 0.75em;
+  right: 0.35em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.daily-temp-deg {
+  font-size: 1rem;
+}
+
+.now-daily-description-element {
+  font-size: 1.25em;
+  padding-top: 0.25em;
+}
+
+@media (max-width: 60rem) {
+  .data-card-main {
+    width: 100%;
+    padding: 1em 1em 2em;
+  }
+
+  .data-card-extended {
+    width: 100%;
+    border-left: none;
+    height: 0em;
+  }
+
+  .image-element-container {
+    padding-right: 0em;
+  }
+
+  .temperature-element {
+    padding-left: 0em;
+  }
+
+  .temperature-element {
+    text-align: left;
+    right: 0;
+  }
+
+  .sunrise-image-container,
+  .sunset-image-container {
+    top: 0em;
+  }
+
+  .data-card-coordinates {
+    padding: 0 0 1 em;
+  }
+
+  .more-chevron-container {
+    display: block;
+  }
+
+  .data-card-extended > p {
+    padding: 0.75em;
+  }
+
+  .data-card-extended.extending {
+    height: 21.5em;
+  }
+}
+
+@media (max-width: 45rem) {
+  .data-card:last-child {
+    margin: 0.75em 0;
+  }
+
+  .time-element {
+    font-size: 0.9em;
+  }
+
+  .data-card-extended > * p {
+    padding: 0.75em;
+  }
+
+  .data-card-extended.extending {
+    height: 21.5em;
+  }
+}
+
+/* Right Section */
+.right-section {
+  padding-left: 5%;
+  height: 100%;
+}
+
+.height-auto-important {
+  height: auto !important;
+}
+
+@media (max-width: 45rem) {
+  .right-section {
+    padding-left: 0;
+  }
+}
+
+/** Map prompt and map css **/
+.click-map-description {
+  opacity: 1 !important;
+  padding: 1em;
+  margin: 0 !important;
+  font-size: 1.2vw;
+}
+
+.map-prompt {
+  color: #ffffff;
+  background-color: #1a1a1a;
+  margin-bottom: 1em;
+  transition: opacity 1s;
+  position: relative;
+  opacity: 0;
+}
+
+.map-prompt.active {
+  opacity: 1;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.map-prompt-left,
+.map-prompt-right {
+  text-align: center;
+  width: 100%;
+  margin-top: 0.25em;
+}
+
+.map-prompt-description {
+  font-size: 0.9em;
+  padding-top: 1em;
+}
+
+.map-prompt-description span {
+  display: block;
+}
+
+.prompt-button {
+  color: #ffffff;
+  padding: 1.5em;
+}
+
+/* Extra bit of code I have to add because for some reason leaflet isn't working so I have to manually input it (change this if you change height of #map) */
+.leaflet-bottom {
+  bottom: -45em !important;
+}
+
+#map {
+  position: sticky !important;
+  top: 7em;
+  height: 45em;
+}
+
+@media (max-width: 45rem) {
+  .click-map-description {
+    font-size: 0.75em;
+  }
+  #map {
+    height: 70vw;
+  }
+
+  .leaflet-bottom {
+    bottom: -70vw !important;
+  }
+}
+
+/* Footer section */
+
+footer {
+  height: auto;
+  margin-top: 2em;
+  background-color: rgba(51, 51, 51, 0.1);
+  text-align: left;
+}
+
+.footer-section {
+  padding: 0 1em;
+}
+
+.footer-section a:hover {
+  transition: color 0.25s;
+  color: #fad000;
+}
+
+.footer-section > * {
+  line-height: 1.75em;
+}
+
+.footer-header {
+  font-weight: 900;
+  margin-bottom: 0.5em;
+}
+
+.middle-footer {
+  margin: 0 5%;
+}
+
+.first-strip-footer,
+.second-strip-footer {
+  padding: 2em 0;
+}
+
+footer .fas,
+footer .fab {
+  color: #000000;
+  font-size: 1.1em;
+}
+
+.third-strip-footer .fas:hover,
+.third-strip-footer .fab:hover {
+  transition: color 0.25s;
+  color: #fad000;
+}
+
+.footer-social {
+  border-top: 1px solid rgba(51, 51, 51, 0.3);
+  padding: 2em 0 3em;
+  font-size: 0.9em;
+}
+
+.ul-footer-social li {
+  display: inline-block;
+  padding: 0 1em;
+}
+
+.footer-small {
+  display: none;
+}
+
+.footer-chevron-container {
+  top: 0.5em;
+  text-align: center;
+  width: 10%;
+}
+
+.footer-chevron-button {
+  bottom: 1em;
+  padding: 1em;
+}
+
+.footer-chevron-button:hover {
+  background-color: transparent;
+}
+
+.footer-extended {
+  transition: all 0.5s;
+  max-height: 0em;
+  overflow: hidden;
+}
+
+.footer-extended.extending {
+  max-height: 11em;
+  overflow: hidden;
+  padding-bottom: 0.5em;
+}
+
+@media (max-width: 45rem) {
+  .footer-section {
+    padding: 1em 0 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  .third-strip-footer .footer-section {
+    padding: 1em 0 0;
+    border-bottom: none;
+  }
+
+  .middle-footer {
+    margin: 0%;
+  }
+
+  .first-strip-footer {
+    padding: 1em 0 0;
+  }
+
+  .second-strip-footer {
+    padding: 0;
+  }
+
+  .footer-main-section {
+    display: none;
+  }
+
+  .footer-small {
+    display: block;
+  }
+
+  .footer-header {
+    float: left;
+  }
+}
