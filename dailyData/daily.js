@@ -8,6 +8,9 @@ let units;
 let distanceUnits;
 let temperatureUnits;
 
+// Api key
+const apiKey = config.apiKey;
+
 async function checkingUnits() {
   const fahrenheit = document.getElementsByClassName("fahrenheit")[0];
   const celsius = document.getElementsByClassName("celsius")[0];
@@ -49,7 +52,6 @@ function setCurrentLocation() {
     });
 
     function foundLocation(position) {
-      console.log(position);
       const inputLat = document.getElementById("input-lat");
       const inputLon = document.getElementById("input-lon");
       inputLat.value = position.coords.latitude.toFixed(2);
@@ -118,10 +120,9 @@ async function weatherLocation() {
     // Grabs the correct temperatureUnits needed in order to display the correct data
     const unitsEquals = await checkingUnits();
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${inputLat}&lon=${inputLon}${temperatureUnits}&appid=a88e9c6fe7f5e16832f1067fe9f85819`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${inputLat}&lon=${inputLon}${temperatureUnits}&appid=${apiKey}`
     );
     const data = await response.json();
-    console.log(data);
 
     // Displays the data on the header .search-menu, triggers once, has seperate function below for when search button gets clicked
     const timezoneData = document.getElementsByClassName("timezone-data")[0];
@@ -155,7 +156,6 @@ async function weatherLocation() {
 
     return data;
   } catch (error) {
-    console.log("SOMETHING WENT WRONG!");
     console.error(error);
   }
 }
@@ -840,8 +840,6 @@ document
 
     rightSection.classList.add("height-auto-important");
 
-    console.log(event);
-
     if (mapNotClicked) {
       // When clicked on map the page goes to the prompt in case the user doesn't notice the prompt popped up
       const rightSectionOffsetTop = rightSection.offsetTop;
@@ -864,7 +862,6 @@ document
 
       function yesPromptFunction() {
         mapNotClicked = true;
-        console.log("yes was clicked!");
 
         mapPrompt.classList.remove("active");
         // Set to 1000ms because that's how long the opacity transition takes
@@ -882,7 +879,6 @@ document
 
       function noPromptFunction() {
         mapNotClicked = true;
-        console.log("no was clicked.");
 
         mapPrompt.classList.remove("active");
         setTimeout(function () {
