@@ -13,7 +13,7 @@ Clone the repository on your local machine.
 You need your own api key from openweatherapi to use this app, create a file outside all the folders named config.js. Add an object named config. Add inside the object a key value pair with key name being apiKey and set the value as your api key
 
 // config.js
-EX. const config { apiKey: YOUR_API_KEY }
+EX. const config = { apiKey: YOUR_API_KEY };
 
 Click in one of the three folders and they each have their own html, css, and js file there is no global one for all of them but they all connect with eachother.
 
