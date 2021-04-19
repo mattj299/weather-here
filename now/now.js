@@ -97,7 +97,7 @@ function setCurrentLocation() {
       }
     }
   } else {
-    console.log("geolocation is not available.");
+    alert("geolocation is not available.");
   }
 }
 
@@ -109,13 +109,13 @@ async function weatherLocation() {
     const inputLon = document.getElementById("input-lon").value;
 
     if (inputLat == "" || inputLon == "") {
-      console.log("Enter a Latitude and Longitude.");
+      alert("Enter a Latitude and Longitude.");
       return;
     } else if (inputLat > 90 || inputLat < -90) {
-      console.log("Enter a latitude that is 90° or less, or -90° or above");
+      alert("Enter a latitude that is 90° or less, or -90° or above");
       return;
     } else if (inputLon > 180 || inputLon < -180) {
-      console.log("Enter a longitude that is 180° or less, or -180° or above");
+      alert("Enter a longitude that is 180° or less, or -180° or above");
       return;
     }
     // Grabs the correct temperatureUnits needed in order to display the correct data
@@ -165,7 +165,7 @@ async function weatherLocation() {
 async function nowData() {
   const data = await weatherLocation();
   if (data == undefined) {
-    console.log("There was an error receiveing the data");
+    alert("There was an error receiveing the data");
     return;
   }
   const dataCurrently = data.current;
